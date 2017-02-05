@@ -836,6 +836,7 @@ void Error_Handler(void)
   /* USER CODE END Error_Handler */ 
 }
 
+
 #ifdef USE_FULL_ASSERT
 
 /**
