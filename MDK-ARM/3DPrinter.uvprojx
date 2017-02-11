@@ -310,7 +310,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -332,10 +332,10 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>--C99</MiscControls>
-              <Define>USE_HAL_DRIVER,STM32F746xx</Define>
+              <MiscControls>--diag_suppress=1299; --cpp11</MiscControls>
+              <Define>USE_HAL_DRIVER,STM32F746xx,IS_PORTING</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;../Drivers/STM32F7xx_HAL_Driver/Inc;../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F7xx/Include;../Drivers/CMSIS/Include;..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc</IncludePath>
+              <IncludePath>../Inc;../Drivers/STM32F7xx_HAL_Driver/Inc;../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F7xx/Include;../Drivers/CMSIS/Include;..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\BSP</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -764,80 +764,25 @@
               <FileType>1</FileType>
               <FilePath>..\Src\usbd_desc.c</FilePath>
             </File>
+            <File>
+              <FileName>user_utility.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\user_utility.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Marlin</GroupName>
           <Files>
             <File>
-              <FileName>boards.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Marlin\boards.h</FilePath>
-            </File>
-            <File>
-              <FileName>Configuration.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Marlin\Configuration.h</FilePath>
-            </File>
-            <File>
-              <FileName>Configuration_adv.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Marlin\Configuration_adv.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>DriverLayer</GroupName>
-          <Files>
-            <File>
-              <FileName>dl_gpio.cpp</FileName>
+              <FileName>compiler_test.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\DriverLayer\dl_gpio.cpp</FilePath>
+              <FilePath>..\Marlin\compiler_test.cpp</FilePath>
             </File>
             <File>
-              <FileName>dl_gpio.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\DriverLayer\dl_gpio.h</FilePath>
-            </File>
-            <File>
-              <FileName>dl_adc.cpp</FileName>
+              <FileName>fastio.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\DriverLayer\dl_adc.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>dl_adc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\DriverLayer\dl_adc.h</FilePath>
-            </File>
-            <File>
-              <FileName>dl_dma.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\DriverLayer\dl_dma.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>dl_dma.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\DriverLayer\dl_dma.h</FilePath>
-            </File>
-            <File>
-              <FileName>dl_timer.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\DriverLayer\dl_timer.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>dl_timer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\DriverLayer\dl_timer.h</FilePath>
-            </File>
-            <File>
-              <FileName>dl_usart.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\DriverLayer\dl_usart.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>dl_usart.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\DriverLayer\dl_usart.h</FilePath>
+              <FilePath>..\Marlin\fastio.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -863,6 +808,61 @@
               <FileName>usbd_cdc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Src\usbd_cdc.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>BSP</GroupName>
+          <Files>
+            <File>
+              <FileName>bsp_stm32f7xx_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\bsp_stm32f7xx_usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_stm32f7xx_usart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\BSP\bsp_stm32f7xx_usart.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_stm32f7xx_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\bsp_stm32f7xx_adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_stm32f7xx_adc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\BSP\bsp_stm32f7xx_adc.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_stm32f7xx_tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\bsp_stm32f7xx_tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_stm32f7xx_tim.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\BSP\bsp_stm32f7xx_tim.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_stm32f7xx_io.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\bsp_stm32f7xx_io.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_stm32f7xx_io.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\BSP\bsp_stm32f7xx_io.h</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_stm32f7xx_debug.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\bsp_stm32f7xx_debug.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_stm32f7xx_debug.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\BSP\bsp_stm32f7xx_debug.h</FilePath>
             </File>
           </Files>
         </Group>
