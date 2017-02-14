@@ -16,3 +16,7 @@
 #include "printcounter.h"
 #include "bsp_stm32f7xx_usart.h"
 
+/*
+--diag_suppress=1299; --cpp11
+*/
+

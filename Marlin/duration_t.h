@@ -38,7 +38,10 @@ struct duration_t {
    * @brief Constructor
    */
   duration_t()
-    : duration_t(0) {};
+    //: duration_t(0) {};
+	{
+		value = 0;
+	}
 
   /**
    * @brief Constructor

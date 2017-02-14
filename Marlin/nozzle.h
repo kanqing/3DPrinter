@@ -45,7 +45,8 @@ class Nozzle {
       __attribute__((unused)) point_t const &start,
       __attribute__((unused)) point_t const &end,
       __attribute__((unused)) uint8_t const &strokes
-    ) __attribute__((optimize ("Os"))) {
+    ) //__attribute__((optimize ("Os"))) 
+			{
       #if ENABLED(NOZZLE_CLEAN_FEATURE)
 
         #if ENABLED(NOZZLE_CLEAN_GOBACK)
@@ -91,7 +92,8 @@ class Nozzle {
       __attribute__((unused)) point_t const &end,
       __attribute__((unused)) uint8_t const &strokes,
       __attribute__((unused)) uint8_t const &objects
-    ) __attribute__((optimize ("Os"))) {
+    ) //__attribute__((optimize ("Os"))) 
+			{
       #if ENABLED(NOZZLE_CLEAN_FEATURE)
         float A = fabs(end.y - start.y); // [twice the] Amplitude
         float P = fabs(end.x - start.x) / (objects << 1); // Period
@@ -147,7 +149,8 @@ class Nozzle {
       __attribute__((unused)) uint8_t const &pattern,
       __attribute__((unused)) uint8_t const &strokes,
       __attribute__((unused)) uint8_t const &objects = 0
-    ) __attribute__((optimize ("Os"))) {
+    ) //__attribute__((optimize ("Os"))) 
+			{
       #if ENABLED(NOZZLE_CLEAN_FEATURE)
         switch (pattern) {
           case 1:
@@ -166,7 +169,8 @@ class Nozzle {
 
     static void park(
       __attribute__((unused)) uint8_t const &z_action
-    ) __attribute__((optimize ("Os"))) {
+    ) //__attribute__((optimize ("Os"))) 
+			{
       #if ENABLED(NOZZLE_PARK_FEATURE)
         float const z = current_position[Z_AXIS];
         point_t const park = NOZZLE_PARK_POINT;

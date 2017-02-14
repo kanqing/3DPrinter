@@ -32,6 +32,9 @@
 #include "blinkm.h"
 
 void SendColors(byte red, byte grn, byte blu) {
+#if MB(STM_3D)
+  
+#else
   Wire.begin();
   Wire.beginTransmission(0x09);
   Wire.write('o');                    //to disable ongoing script, only needs to be used once
@@ -40,6 +43,7 @@ void SendColors(byte red, byte grn, byte blu) {
   Wire.write(grn);
   Wire.write(blu);
   Wire.endTransmission();
+#endif  
 }
 
 #endif //BLINKM

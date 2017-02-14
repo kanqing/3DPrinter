@@ -78,78 +78,6 @@
         <IsCurrentTarget>1</IsCurrentTarget>
       </OPTFL>
       <CpuCode>18</CpuCode>
-      <Books>
-        <Book>
-          <Number>0</Number>
-          <Title>BSP User Manual (STM32F746G-Discovery)</Title>
-          <Path>J:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.8.0\Drivers\BSP\STM32746G-Discovery\STM32746G-Discovery_BSP_User_Manual.chm</Path>
-        </Book>
-        <Book>
-          <Number>1</Number>
-          <Title>BSP User Manual (STM32756G-EVAL)</Title>
-          <Path>J:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.8.0\Drivers\BSP\STM32756G_EVAL\STM32756G_EVAL_BSP_User_Manual.chm</Path>
-        </Book>
-        <Book>
-          <Number>2</Number>
-          <Title>User Manual (STM32756G-EVAL)</Title>
-          <Path>J:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.8.0\MDK\Boards\ST\STM32756G_EVAL\Documentation\DM00188617.pdf</Path>
-        </Book>
-        <Book>
-          <Number>3</Number>
-          <Title>STM32F756G-Eval Quick Start Guide (STM32756G-EVAL)</Title>
-          <Path>J:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.8.0\MDK\Boards\ST\STM32756G_EVAL\Documentation\STM32F756G-EVAL_QSG.pdf</Path>
-        </Book>
-        <Book>
-          <Number>4</Number>
-          <Title>Bill of Materials (STM32756G-EVAL)</Title>
-          <Path>J:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.8.0\MDK\Boards\ST\STM32756G_EVAL\Documentation\stm327x6g-eval_bom.zip</Path>
-        </Book>
-        <Book>
-          <Number>5</Number>
-          <Title>Gerber Files (STM32756G-EVAL)</Title>
-          <Path>J:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.8.0\MDK\Boards\ST\STM32756G_EVAL\Documentation\stm327x6g-eval_gerber.zip</Path>
-        </Book>
-        <Book>
-          <Number>6</Number>
-          <Title>Schematics (STM32756G-EVAL)</Title>
-          <Path>J:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.8.0\MDK\Boards\ST\STM32756G_EVAL\Documentation\stm327x6g-eval_sch.zip</Path>
-        </Book>
-        <Book>
-          <Number>7</Number>
-          <Title>STM32F746G-Discovery Quick Start Guide (STM32F746G-Discovery)</Title>
-          <Path>J:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.8.0\MDK\Boards\ST\STM32F746G_Discovery\Documentation\32F746GDISCOVERY_QSG.pdf</Path>
-        </Book>
-        <Book>
-          <Number>8</Number>
-          <Title>User Manual (STM32F746G-Discovery)</Title>
-          <Path>J:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.8.0\MDK\Boards\ST\STM32F746G_Discovery\Documentation\DM00190424.pdf</Path>
-        </Book>
-        <Book>
-          <Number>9</Number>
-          <Title>Bill of Materials (STM32F746G-Discovery)</Title>
-          <Path>J:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.8.0\MDK\Boards\ST\STM32F746G_Discovery\Documentation\stm32f746g-disco_bom.zip</Path>
-        </Book>
-        <Book>
-          <Number>10</Number>
-          <Title>Gerber Files (STM32F746G-Discovery)</Title>
-          <Path>J:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.8.0\MDK\Boards\ST\STM32F746G_Discovery\Documentation\stm32f746g-disco_gerber.zip</Path>
-        </Book>
-        <Book>
-          <Number>11</Number>
-          <Title>Schematics (STM32F746G-Discovery)</Title>
-          <Path>J:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.8.0\MDK\Boards\ST\STM32F746G_Discovery\Documentation\stm32f746g-disco_sch.zip</Path>
-        </Book>
-        <Book>
-          <Number>12</Number>
-          <Title>STM32F746G_Discovery Web Page (STM32F746G-Discovery)</Title>
-          <Path>http://www.st.com/en/evaluation-tools/32f746gdiscovery.html</Path>
-        </Book>
-        <Book>
-          <Number>13</Number>
-          <Title>STM32756G_EVAL Evaluation Board Web Page (STM32756G-EVAL)</Title>
-          <Path>http://www.st.com/web/catalog/tools/FM116/SC959/SS1532/LN1199/PF261640</Path>
-        </Book>
-      </Books>
       <DebugOpt>
         <uSim>0</uSim>
         <uTrg>1</uTrg>
@@ -306,11 +234,12 @@
       <LintExecutable></LintExecutable>
       <LintConfigFile></LintConfigFile>
       <bLintAuto>0</bLintAuto>
-      <Lin2Executable></Lin2Executable>
-      <Lin2ConfigFile></Lin2ConfigFile>
-      <bLin2Auto>0</bLin2Auto>
       <bAutoGenD>0</bAutoGenD>
-      <bAuto2GenD>0</bAuto2GenD>
+      <LntExFlags>0</LntExFlags>
+      <pMisraName></pMisraName>
+      <pszMrule></pszMrule>
+      <pSingCmds></pSingCmds>
+      <pMultCmds></pMultCmds>
       <DebugDescription>
         <Enable>1</Enable>
         <EnableLog>0</EnableLog>
@@ -1254,7 +1183,7 @@
 
   <Group>
     <GroupName>Marlin</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1282,6 +1211,54 @@
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
+    <File>
+      <GroupNumber>5</GroupNumber>
+      <FileNumber>78</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\Marlin\blinkm.cpp</PathWithFileName>
+      <FilenameWithoutPath>blinkm.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>5</GroupNumber>
+      <FileNumber>79</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\Marlin\MarlinSerial.cpp</PathWithFileName>
+      <FilenameWithoutPath>MarlinSerial.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>5</GroupNumber>
+      <FileNumber>80</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\Marlin\endstops.cpp</PathWithFileName>
+      <FilenameWithoutPath>endstops.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>5</GroupNumber>
+      <FileNumber>81</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>1</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\Marlin\Marlin_main.cpp</PathWithFileName>
+      <FilenameWithoutPath>Marlin_main.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
   </Group>
 
   <Group>
@@ -1292,7 +1269,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>78</FileNumber>
+      <FileNumber>82</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1304,7 +1281,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>79</FileNumber>
+      <FileNumber>83</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1316,7 +1293,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>80</FileNumber>
+      <FileNumber>84</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1328,7 +1305,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>81</FileNumber>
+      <FileNumber>85</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1348,7 +1325,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>82</FileNumber>
+      <FileNumber>86</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1360,7 +1337,7 @@
     </File>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>83</FileNumber>
+      <FileNumber>87</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1372,7 +1349,7 @@
     </File>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>84</FileNumber>
+      <FileNumber>88</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1384,7 +1361,7 @@
     </File>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>85</FileNumber>
+      <FileNumber>89</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1396,7 +1373,7 @@
     </File>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>86</FileNumber>
+      <FileNumber>90</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1408,7 +1385,7 @@
     </File>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>87</FileNumber>
+      <FileNumber>91</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1420,7 +1397,7 @@
     </File>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>88</FileNumber>
+      <FileNumber>92</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1432,7 +1409,7 @@
     </File>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>89</FileNumber>
+      <FileNumber>93</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1444,7 +1421,7 @@
     </File>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>90</FileNumber>
+      <FileNumber>94</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1456,7 +1433,7 @@
     </File>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>91</FileNumber>
+      <FileNumber>95</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
