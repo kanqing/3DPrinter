@@ -27,7 +27,7 @@
 #include "language.h"
 #include "types.h"
 #include "stopwatch.h"
-#ifndef IS_PORTING
+#if !MB(STM_3D)
 #include <avr/eeprom.h>
 #endif
 
@@ -54,7 +54,7 @@ class PrintCounter: public Stopwatch {
      * @brief EEPROM address
      * @details Defines the start offset address where the data is stored.
      */
-    #ifndef IS_PORTING
+    #if !MB(STM_3D)
     const uint16_t address = 0x32;
     #else
     const uint16_t address;// = 0x32;
@@ -68,7 +68,7 @@ class PrintCounter: public Stopwatch {
      * @note The max value for this option is 60(s), otherwise integer
      * overflow will happen.
      */
-    #ifndef IS_PORTING
+    #if !MB(STM_3D)
     const uint16_t updateInterval = 10;
     #else
     const uint16_t updateInterval;// = 10;
@@ -79,7 +79,7 @@ class PrintCounter: public Stopwatch {
      * EEPROM save cycle, the development team recommends to set this value
      * no lower than 3600 secs (1 hour).
      */
-    #ifndef IS_PORTING
+    #if !MB(STM_3D)
     const uint16_t saveInterval = 3600;
     #else
     const uint16_t saveInterval;// = 3600;
@@ -96,7 +96,7 @@ class PrintCounter: public Stopwatch {
      * @details If set to true it indicates if the statistical data was already
      * loaded from the EEPROM.
      */
-    #ifndef IS_PORTING
+    #if !MB(STM_3D)
     bool loaded = false;
     #else
     bool loaded;// = false;

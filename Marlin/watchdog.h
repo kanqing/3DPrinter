@@ -24,10 +24,16 @@
 #define WATCHDOG_H
 
 #include "Marlin.h"
+#if !MB(STM_3D)
 #include <avr/wdt.h>
+#endif
 
 // Initialize watchdog with a 4 second interrupt time
 void watchdog_init();
+
+#if MB(STM_3D)
+extern void wdt_reset(void);
+#endif
 
 // Reset watchdog. MUST be called at least every 4 seconds after the
 // first watchdog_init or AVR will go into emergency procedures.

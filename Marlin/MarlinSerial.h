@@ -147,7 +147,7 @@ class MarlinSerial { //: public Stream
   public:
     FORCE_INLINE void write(const char* str) { while (*str) write(*str++); }
     FORCE_INLINE void write(const uint8_t* buffer, size_t size) { while (size--) write(*buffer++); }
-    #ifndef IS_PORTING
+    #if !MB(STM_3D)
     FORCE_INLINE void print(const String& s) { for (int i = 0; i < (int)s.length(); i++) write(s[i]); }
     #endif
     FORCE_INLINE void print(const char* str) { write(str); }
@@ -159,7 +159,7 @@ class MarlinSerial { //: public Stream
     void print(long, int = DEC);
     void print(unsigned long, int = DEC);
     void print(double, int = 2);
-    #ifndef IS_PORTING
+    #if !MB(STM_3D)
     void println(const String& s);
     #endif
     void println(const char[]);

@@ -56,6 +56,9 @@ extern "C" {
   void _set_io_input(GPIO_TypeDef * port, uint16_t pin);
   void _set_io_output(GPIO_TypeDef * port, uint16_t pin);
 
+  #define pinMode(x,y)    {}    //not handled 
+  
+
   #define _READ(IO)       HAL_GPIO_ReadPin(PORT_NUM(IO), PIN_NUM(IO))
   #define _WRITE(IO, v)   HAL_GPIO_WritePin(PORT_NUM(IO), PIN_NUM(IO), (GPIO_PinState)v)
   #define _TOGGLE(IO)     HAL_GPIO_TogglePin(PORT_NUM(IO), PIN_NUM(IO))
@@ -82,6 +85,9 @@ extern "C" {
 
   // Shorthand
   #define OUT_WRITE(IO, v) { SET_OUTPUT(IO); WRITE(IO, v); }
+
+  #define digitalWrite(IO,v) ((IO) > (-1))?WRITE(IO, v):(HAL_GPIO_WritePin(0,0,(GPIO_PinState)v))//will generate an assert
+  #define digitalRead(IO)   ((IO) > (-1))?READ(IO):0
   
   /// external macro 
   #define _BV(bit) (1<<(bit))
@@ -93,8 +99,21 @@ extern "C" {
   typedef uint8_t  boolean;
   typedef uint8_t  byte;
   #define PSTR(x)          (x)
+  #define sprintf_P sprintf
+  #define strcpy_P strcpy
+  #define strstr_P strstr
+  #define strncpy_P strncpy
+  #define MCUSR 0
+  #define constrain(x, a, b)  ((x) < (a))?(a):(((x) > (b))? (b) : (x))
+  #define min(a,b) (((a)<(b))?(a):(b))
+  #define max(a,b) (((a)>(b))?(a):(b))
+  #define square(x) ((x) * (x))
+  #define _delay_ms(x)      HAL_Delay(x)   
+  #define delay(x)      HAL_Delay(x) 
+  #define cli()       __disable_irq()
+  #define sei()       __enable_irq()
   
-  /*为了编译通过，暂时定义在这儿*/
+  /* */
   #define TICK_TIMER_PRESCALER  32
   #define BSP_MiscTickSetPeriod(x)  //void(x)
 #ifdef __cplusplus

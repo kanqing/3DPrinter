@@ -28,12 +28,7 @@
 #include <string.h>
 #include <inttypes.h>
 
-#ifndef IS_PORTING
-#include <util/delay.h>
-#include <avr/pgmspace.h>
-#include <avr/eeprom.h>
-#include <avr/interrupt.h>
-#endif
+
 
 #include "MarlinConfig.h"
 
@@ -41,6 +36,13 @@
 #include "types.h"
 #include "fastio.h"
 #include "utility.h"
+
+#if !MB(STM_3D)
+#include <util/delay.h>
+#include <avr/pgmspace.h>
+#include <avr/eeprom.h>
+#include <avr/interrupt.h>
+#endif
 
 #ifdef USBCON
   #include "HardwareSerial.h"
@@ -54,7 +56,7 @@
   #define MYSERIAL customizedSerial
 #endif
 
-#ifndef IS_PORTING
+#if !MB(STM_3D)
 #include "WString.h"
 #endif
 
@@ -106,7 +108,7 @@ FORCE_INLINE void serial_echopair_P(const char* s_P, void *v) { serial_echopair_
 
 // Things to write to serial from Program memory. Saves 400 to 2k of RAM.
 FORCE_INLINE void serialprintPGM(const char* str) {
-  #ifndef IS_PORTING
+  #if !MB(STM_3D)
   char ch;
   while ((ch = pgm_read_byte(str))) {
     MYSERIAL.write(ch);
@@ -269,9 +271,9 @@ inline void refresh_cmd_timeout() { previous_cmd_ms = millis(); }
  */
 extern int feedrate_percentage;
 
-#define MMM_TO_MMS(MM_M) ((MM_M)/60.0)
-#define MMS_TO_MMM(MM_S) ((MM_S)*60.0)
-#define MMM_SCALED(MM_M) ((MM_M)*feedrate_percentage*0.01)
+#define MMM_TO_MMS(MM_M) ((MM_M)/60.0f)
+#define MMS_TO_MMM(MM_S) ((MM_S)*60.0f)
+#define MMM_SCALED(MM_M) ((MM_M)*feedrate_percentage*0.01f)
 #define MMS_SCALED(MM_S) MMM_SCALED(MM_S)
 #define MMM_TO_MMS_SCALED(MM_M) (MMS_SCALED(MMM_TO_MMS(MM_M)))
 
@@ -401,9 +403,9 @@ void calculate_volumetric_multipliers();
 /**
  * Blocking movement and shorthand functions
  */
-inline void do_blocking_move_to(float x, float y, float z, float fr_mm_m=0.0);
-inline void do_blocking_move_to_x(float x, float fr_mm_m=0.0);
-inline void do_blocking_move_to_z(float z, float fr_mm_m=0.0);
-inline void do_blocking_move_to_xy(float x, float y, float fr_mm_m=0.0);
+inline void do_blocking_move_to(float x, float y, float z, float fr_mm_m=0.0f);
+inline void do_blocking_move_to_x(float x, float fr_mm_m=0.0f);
+inline void do_blocking_move_to_z(float z, float fr_mm_m=0.0f);
+inline void do_blocking_move_to_xy(float x, float y, float fr_mm_m=0.0f);
 
 #endif //MARLIN_H

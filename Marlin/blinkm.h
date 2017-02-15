@@ -25,7 +25,7 @@
  * Created by Tim Koster, August 21 2013.
  */
 
-#ifndef IS_PORTING
+#if !MB(STM_3D)
 #include "Arduino.h"
 #include "Wire.h"
 #else

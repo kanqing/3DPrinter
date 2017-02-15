@@ -34,7 +34,7 @@
 #ifndef USBCON
   #define HardwareSerial_h // trick to disable the standard HWserial
 #endif
-#ifndef IS_PORTING
+#if !MB(STM_3D)
 #include "Arduino.h"
 #endif
 #include "Conditionals_post.h"

@@ -52,7 +52,7 @@
 class Stepper;
 extern Stepper stepper;
 
-#ifndef IS_PORTING
+#if !MB(STM_3D)
 // intRes = intIn1 * intIn2 >> 16
 // uses:
 // r26 to store 0
@@ -178,7 +178,7 @@ class Stepper {
     // Interrupt Service Routines
     //
 
-    #ifndef IS_PORTING
+    #if !MB(STM_3D)
     static void isr();
     #else
     static void StepperHandler(void);
@@ -285,7 +285,7 @@ class Stepper {
       unsigned short timer;
 
       NOMORE(step_rate, MAX_STEP_FREQUENCY);
-#ifndef IS_PORTING
+#if !MB(STM_3D)
       if (step_rate > 20000) { // If steprate > 20kHz >> step 4 times
         step_rate >>= 2;
         step_loops = 4;
@@ -381,7 +381,7 @@ class Stepper {
       step_loops_nominal = step_loops;
       acc_step_rate = current_block->initial_rate;
       acceleration_time = calc_timer(acc_step_rate);
-      #ifndef IS_PORTING
+      #if !MB(STM_3D)
       OCR1A = acceleration_time;
       #else
       BSP_MiscTickSetPeriod(acceleration_time);

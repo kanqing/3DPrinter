@@ -31,7 +31,7 @@
  * we now prevent Marlin from compiling with older toolkits.
  */
 #if !defined(ARDUINO) || ARDUINO < 10600
-  #ifndef IS_PORTING
+  #if !MB(STM_3D)
   #error "Versions of Arduino IDE prior to 1.6.0 are no longer supported, please update your toolkit."
   #endif
 #endif

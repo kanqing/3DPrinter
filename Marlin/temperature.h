@@ -238,7 +238,7 @@ class Temperature {
     /**
      * Called from the Temperature ISR
      */
-  #ifndef IS_PORTING
+  #if !MB(STM_3D)
     static void isr();
   #else
     static void TemperatureHandler();

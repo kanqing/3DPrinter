@@ -48,10 +48,10 @@
 
 // Macros for maths shortcuts
 #ifndef M_PI
-  #define M_PI 3.14159265358979323846
+  #define M_PI 3.14159265358979323846f
 #endif
-#define RADIANS(d) ((d)*M_PI/180.0)
-#define DEGREES(r) ((r)*180.0/M_PI)
+#define RADIANS(d) ((d)*M_PI/180.0f)
+#define DEGREES(r) ((r)*180.0f/M_PI)
 #define HYPOT(x,y) sqrt(sq(x)+sq(y))
 
 // Macros to contrain values

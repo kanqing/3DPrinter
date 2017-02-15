@@ -26,25 +26,25 @@
   #define Z_MIN_PROBE_PIN   PIN_VAL('I',2)
 #endif
 
-#define X_STEP_PIN         54
-#define X_DIR_PIN          55
-#define X_ENABLE_PIN       38
+#define X_STEP_PIN         PIN_VAL('A',15)
+#define X_DIR_PIN          PIN_VAL('B',9)
+#define X_ENABLE_PIN       PIN_VAL('B',8)
 
-#define Y_STEP_PIN         60
-#define Y_DIR_PIN          61
-#define Y_ENABLE_PIN       56
+#define Y_STEP_PIN         PIN_VAL('A',8)
+#define Y_DIR_PIN          PIN_VAL('B',14)
+#define Y_ENABLE_PIN       PIN_VAL('I',1)
 
-#define Z_STEP_PIN         46
-#define Z_DIR_PIN          48
-#define Z_ENABLE_PIN       62
+#define Z_STEP_PIN         PIN_VAL('H',6)
+#define Z_DIR_PIN          PIN_VAL('I',0)
+#define Z_ENABLE_PIN       PIN_VAL('B',15)
 
-#define E0_STEP_PIN        26
-#define E0_DIR_PIN         28
-#define E0_ENABLE_PIN      24
+#define E0_STEP_PIN        PIN_VAL('A',15)
+#define E0_DIR_PIN         PIN_VAL('F',6)
+#define E0_ENABLE_PIN      PIN_VAL('F',7)
 
-#define E1_STEP_PIN        36
-#define E1_DIR_PIN         34
-#define E1_ENABLE_PIN      30
+#define E1_STEP_PIN        -1
+#define E1_DIR_PIN         -1
+#define E1_ENABLE_PIN      -1
 
 #define SDSS               -1
 #define LED_PIN            -1
@@ -56,9 +56,9 @@
 #define FIL_RUNOUT_PIN      -1
 
 #define PS_ON_PIN          -1
-#define TEMP_0_PIN         13   // ANALOG NUMBERING
-#define TEMP_1_PIN         15   // ANALOG NUMBERING
-#define TEMP_BED_PIN       14   // ANALOG NUMBERING
+#define TEMP_0_PIN         PIN_VAL('A',0)   // ANALOG NUMBERING
+#define TEMP_1_PIN         -1   // ANALOG NUMBERING
+#define TEMP_BED_PIN       PIN_VAL('F',10)   // ANALOG NUMBERING
 
 #if ENABLED(Z_PROBE_SLED)
   #define SLED_PIN           -1
@@ -289,7 +289,7 @@
 
 // SPI for Max6675 or Max31855 Thermocouple
 #if DISABLED(SDSUPPORT)
-  #define MAX6675_SS       66 // Do not use pin 53 if there is even the remote possibility of using Display/SD card
+  #define MAX6675_SS       -1 // Do not use pin 53 if there is even the remote possibility of using Display/SD card
 #else
   #define MAX6675_SS       66 // Do not use pin 49 as this is tied to the switch inside the SD card socket to detect if there is an SD card present
 #endif

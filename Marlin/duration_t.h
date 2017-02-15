@@ -23,7 +23,7 @@
 #ifndef __DURATION_T__
 #define __DURATION_T__
 
-#ifndef IS_PORTING
+#if !MB(STM_3D)
 
 #else
 #include <stdint.h> 

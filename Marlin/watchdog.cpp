@@ -26,6 +26,38 @@
 
 #include "watchdog.h"
 
+#if MB(STM_3D)
+// Initialize watchdog with a 4 sec interrupt time
+void watchdog_init() {
+
+  #if 0
+  #if ENABLED(WATCHDOG_RESET_MANUAL)
+    // We enable the watchdog timer, but only for the interrupt.
+    // Take care, as this requires the correct order of operation, with interrupts disabled. See the datasheet of any AVR chip for details.
+    wdt_reset();
+    _WD_CONTROL_REG = _BV(_WD_CHANGE_BIT) | _BV(WDE);
+    _WD_CONTROL_REG = _BV(WDIE) | WDTO_4S;
+  #else
+    wdt_enable(WDTO_4S);
+  #endif
+  #endif
+
+}
+
+void wdt_reset(void){
+
+}
+
+__weak void watchdog_handle(void){
+  
+  SERIAL_ERROR_START;
+  SERIAL_ERRORLNPGM("Something is wrong, please turn off the printer.");
+  kill(PSTR("ERR:Please Reset")); //kill blocks //16 characters so it fits on a 16x2 display
+  while (1); //wait for user or serial reset
+
+}
+
+#else
 // Initialize watchdog with a 4 sec interrupt time
 void watchdog_init() {
   #if ENABLED(WATCHDOG_RESET_MANUAL)
@@ -52,5 +84,6 @@ void watchdog_init() {
     while (1); //wait for user or serial reset
   }
 #endif //WATCHDOG_RESET_MANUAL
+#endif
 
 #endif //USE_WATCHDOG

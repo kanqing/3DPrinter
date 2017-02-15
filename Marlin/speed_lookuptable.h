@@ -25,7 +25,7 @@
 
 #include "Marlin.h"
 
-#ifndef IS_PORTING
+#if !MB(STM_3D)
 
 #if F_CPU == 16000000
 
