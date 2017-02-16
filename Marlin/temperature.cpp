@@ -38,7 +38,7 @@
 #endif
 
 #ifdef K1 // Defined in Configuration.h in the PID settings
-  #define K2 (1.0-K1)
+  #define K2 (1.0f-K1)
 #endif
 
 #if ENABLED(TEMP_SENSOR_1_AS_REDUNDANT)
@@ -53,15 +53,15 @@ Temperature thermalManager;
 
 // public:
 
-float Temperature::current_temperature[HOTENDS] = { 0.0 },
-      Temperature::current_temperature_bed = 0.0;
+float Temperature::current_temperature[HOTENDS] = { 0.0f },
+      Temperature::current_temperature_bed = 0.0f;
 int   Temperature::current_temperature_raw[HOTENDS] = { 0 },
       Temperature::target_temperature[HOTENDS] = { 0 },
       Temperature::current_temperature_bed_raw = 0,
       Temperature::target_temperature_bed = 0;
 
 #if ENABLED(TEMP_SENSOR_1_AS_REDUNDANT)
-  float Temperature::redundant_temperature = 0.0;
+  float Temperature::redundant_temperature = 0.0f;
 #endif
 
 unsigned char Temperature::soft_pwm_bed;
@@ -117,7 +117,7 @@ unsigned char Temperature::soft_pwm_bed;
 
 #if ENABLED(TEMP_SENSOR_1_AS_REDUNDANT)
   int Temperature::redundant_temperature_raw = 0;
-  float Temperature::redundant_temperature = 0.0;
+  float Temperature::redundant_temperature = 0.0f;
 #endif
 
 volatile bool Temperature::temp_meas_ready = false;
@@ -201,7 +201,7 @@ unsigned char Temperature::soft_pwm[HOTENDS];
 #if HAS_PID_HEATING
 
   void Temperature::PID_autotune(float temp, int hotend, int ncycles, bool set_result/*=false*/) {
-    float input = 0.0;
+    float input = 0.0f;
     int cycles = 0;
     bool heating = true;
 
@@ -322,13 +322,13 @@ unsigned char Temperature::soft_pwm[HOTENDS];
               SERIAL_PROTOCOLPAIR(MSG_T_MIN, min);
               SERIAL_PROTOCOLPAIR(MSG_T_MAX, max);
               if (cycles > 2) {
-                Ku = (4.0 * d) / (3.14159265 * (max - min) * 0.5);
-                Tu = ((float)(t_low + t_high) * 0.001);
+                Ku = (4.0f * d) / (3.14159265f * (max - min) * 0.5f);
+                Tu = ((float)(t_low + t_high) * 0.001f);
                 SERIAL_PROTOCOLPAIR(MSG_KU, Ku);
                 SERIAL_PROTOCOLPAIR(MSG_TU, Tu);
-                workKp = 0.6 * Ku;
+                workKp = 0.6f * Ku;
                 workKi = 2 * workKp / Tu;
-                workKd = workKp * Tu * 0.125;
+                workKd = workKp * Tu * 0.125f;
                 SERIAL_PROTOCOLLNPGM(MSG_CLASSIC_PID);
                 SERIAL_PROTOCOLPAIR(MSG_KP, workKp);
                 SERIAL_PROTOCOLPAIR(MSG_KI, workKi);
@@ -677,7 +677,7 @@ void Temperature::manage_heater() {
   #if ENABLED(HEATER_0_USES_MAX6675)
     float ct = current_temperature[0];
     if (ct > min(HEATER_0_MAXTEMP, 1023)) max_temp_error(0);
-    if (ct < max(HEATER_0_MINTEMP, 0.01)) min_temp_error(0);
+    if (ct < max(HEATER_0_MINTEMP, 0.01f)) min_temp_error(0);
   #endif
 
   #if (ENABLED(THERMAL_PROTECTION_HOTENDS) && WATCH_TEMP_PERIOD > 0) || (ENABLED(THERMAL_PROTECTION_BED) && WATCH_BED_TEMP_PERIOD > 0) || DISABLED(PIDTEMPBED) || HAS_AUTO_FAN
@@ -756,8 +756,8 @@ void Temperature::manage_heater() {
       // Get the delayed info and add 100 to reconstitute to a percent of
       // the nominal filament diameter then square it to get an area
       meas_shift_index = constrain(meas_shift_index, 0, MAX_MEASUREMENT_DELAY);
-      float vm = pow((measurement_delay[meas_shift_index] + 100.0) * 0.01, 2);
-      NOLESS(vm, 0.01);
+      float vm = pow((measurement_delay[meas_shift_index] + 100.0f) * 0.01f, 2);
+      NOLESS(vm, 0.01f);
       volumetric_multiplier[FILAMENT_SENSOR_EXTRUDER_NUM] = vm;
     }
   #endif //FILAMENT_WIDTH_SENSOR
@@ -803,8 +803,11 @@ void Temperature::manage_heater() {
   #endif //TEMP_SENSOR_BED != 0
 }
 
+#if MB(STM_3D)
+#define PGM_RD_W(x)   (short)(x)
+#else
 #define PGM_RD_W(x)   (short)pgm_read_word(&x)
-
+#endif
 // Derived from RepRap FiveD extruder::getTemperature()
 // For hot end temperature measurement.
 float Temperature::analog2temp(int raw, uint8_t e) {
@@ -818,11 +821,11 @@ float Temperature::analog2temp(int raw, uint8_t e) {
       SERIAL_ERROR((int)e);
       SERIAL_ERRORLNPGM(MSG_INVALID_EXTRUDER_NUM);
       kill(PSTR(MSG_KILLED));
-      return 0.0;
+      return 0.0f;
     }
 
   #if ENABLED(HEATER_0_USES_MAX6675)
-    if (e == 0) return 0.25 * raw;
+    if (e == 0) return 0.25f * raw;
   #endif
 
   if (heater_ttbl_map[e] != NULL) {
@@ -845,7 +848,7 @@ float Temperature::analog2temp(int raw, uint8_t e) {
 
     return celsius;
   }
-  return ((raw * ((5.0 * 100.0) / 1024.0) / OVERSAMPLENR) * (TEMP_SENSOR_AD595_GAIN)) + TEMP_SENSOR_AD595_OFFSET;
+  return ((raw * ((5.0f * 100.0f) / 1024.0f) / OVERSAMPLENR) * (TEMP_SENSOR_AD595_GAIN)) + TEMP_SENSOR_AD595_OFFSET;
 }
 
 // Derived from RepRap FiveD extruder::getTemperature()
@@ -872,7 +875,7 @@ float Temperature::analog2tempBed(int raw) {
 
   #elif defined(BED_USES_AD595)
 
-    return ((raw * ((5.0 * 100.0) / 1024.0) / OVERSAMPLENR) * (TEMP_SENSOR_AD595_GAIN)) + TEMP_SENSOR_AD595_OFFSET;
+    return ((raw * ((5.0f * 100.0f) / 1024.0f) / OVERSAMPLENR) * (TEMP_SENSOR_AD595_GAIN)) + TEMP_SENSOR_AD595_OFFSET;
 
   #else
 
@@ -918,7 +921,7 @@ void Temperature::updateTemperaturesFromRawValues() {
 
   // Convert raw Filament Width to millimeters
   float Temperature::analog2widthFil() {
-    return current_raw_filwidth / 16383.0 * 5.0;
+    return current_raw_filwidth / 16383.0f * 5.0f;
     //return current_raw_filwidth;
   }
 
@@ -950,14 +953,14 @@ void Temperature::init() {
     // populate with the first value
     maxttemp[e] = maxttemp[0];
     #if ENABLED(PIDTEMP)
-      temp_iState_min[e] = 0.0;
+      temp_iState_min[e] = 0.0f;
       temp_iState_max[e] = (PID_INTEGRAL_DRIVE_MAX) / PID_PARAM(Ki, e);
       #if ENABLED(PID_EXTRUSION_SCALING)
         last_e_position = 0;
       #endif
     #endif //PIDTEMP
     #if ENABLED(PIDTEMPBED)
-      temp_iState_min_bed = 0.0;
+      temp_iState_min_bed = 0.0f;
       temp_iState_max_bed = (PID_BED_INTEGRAL_DRIVE_MAX) / bedKi;
     #endif //PIDTEMPBED
   }
@@ -1036,6 +1039,7 @@ void Temperature::init() {
     #define ANALOG_SELECT(pin) do{ SBI(DIDR0, pin); }while(0)
   #endif
 
+#if !MB(STM_3D)
   // Set analog inputs
   ADCSRA = _BV(ADEN) | _BV(ADSC) | _BV(ADIF) | 0x07;
   DIDR0 = 0;
@@ -1081,6 +1085,7 @@ void Temperature::init() {
 
   // Wait for temperature measurement to settle
   delay(250);
+#endif
 
   #define TEMP_MIN_ROUTINE(NR) \
     minttemp[NR] = HEATER_ ## NR ## _MINTEMP; \
@@ -1199,7 +1204,7 @@ void Temperature::init() {
 
   void Temperature::thermal_runaway_protection(Temperature::TRState* state, millis_t* timer, float temperature, float target_temperature, int heater_id, int period_seconds, int hysteresis_degc) {
 
-    static float tr_target_temperature[HOTENDS + 1] = { 0.0 };
+    static float tr_target_temperature[HOTENDS + 1] = { 0.0f };
 
     /**
         SERIAL_ECHO_START;

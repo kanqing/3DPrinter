@@ -90,10 +90,10 @@
   #define RAMPS_D8_PIN   -1
 #endif
 #ifndef RAMPS_D9_PIN
-  #define RAMPS_D9_PIN   -1
+  #define RAMPS_D9_PIN   PIN_VAL('F',11)
 #endif
 #ifndef RAMPS_D10_PIN
-  #define RAMPS_D10_PIN   0x1000
+  #define RAMPS_D10_PIN   PIN_VAL('F',12)
 #endif
 
 #define HEATER_0_PIN     RAMPS_D10_PIN

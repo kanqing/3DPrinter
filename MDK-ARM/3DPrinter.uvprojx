@@ -10,7 +10,6 @@
       <TargetName>3DPrinter</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pArmCC>5060422::V5.06 update 4 (build 422)::ARMCC</pArmCC>
       <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
@@ -333,8 +332,8 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>--diag_suppress=1299</MiscControls>
-              <Define>USE_HAL_DRIVER,STM32F746xx,IS_PORTING</Define>
+              <MiscControls>--diag_suppress=1299; --c99; --cpp11</MiscControls>
+              <Define>USE_HAL_DRIVER,STM32F746xx,IS_PORTING,__USE_C99_MATH</Define>
               <Undefine></Undefine>
               <IncludePath>../Inc;../Drivers/STM32F7xx_HAL_Driver/Inc;../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F7xx/Include;../Drivers/CMSIS/Include;..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\BSP</IncludePath>
             </VariousControls>
@@ -804,6 +803,31 @@
               <FileName>Marlin_main.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\Marlin\Marlin_main.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>planner.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Marlin\planner.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>watchdog.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Marlin\watchdog.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>stepper.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Marlin\stepper.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>stopwatch.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Marlin\stopwatch.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>temperature.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Marlin\temperature.cpp</FilePath>
             </File>
           </Files>
         </Group>

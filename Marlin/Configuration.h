@@ -282,12 +282,12 @@
   #define PID_FUNCTIONAL_RANGE 10 // If the temperature difference between the target temperature and the actual temperature
                                   // is more than PID_FUNCTIONAL_RANGE then the PID will be shut off and the heater will be set to min/max.
   #define PID_INTEGRAL_DRIVE_MAX PID_MAX  //limit for the integral term
-  #define K1 0.95 //smoothing factor within the PID
+  #define K1 0.95f //smoothing factor within the PID
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
   // Ultimaker
-  #define  DEFAULT_Kp 22.2
-  #define  DEFAULT_Ki 1.08
+  #define  DEFAULT_Kp 22.2f
+  #define  DEFAULT_Ki 1.08f
   #define  DEFAULT_Kd 114
 
   // MakerGear
@@ -332,9 +332,9 @@
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  #define  DEFAULT_bedKp 10.00
-  #define  DEFAULT_bedKi .023
-  #define  DEFAULT_bedKd 305.4
+  #define  DEFAULT_bedKp 10.00f
+  #define  DEFAULT_bedKi 0.023f
+  #define  DEFAULT_bedKd 305.4f
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from pidautotune
@@ -642,7 +642,7 @@
   //#define MANUAL_BED_LEVELING  // Add display menu option for bed leveling.
 
   #if ENABLED(MANUAL_BED_LEVELING)
-    #define MBL_Z_STEP 0.025  // Step size while manually probing Z axis.
+    #define MBL_Z_STEP 0.025f  // Step size while manually probing Z axis.
   #endif  // MANUAL_BED_LEVELING
 
 #endif  // MESH_BED_LEVELING
@@ -758,9 +758,9 @@
 #define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration in mm/s^2 for travel (non printing) moves
 
 // The speed change that does not require acceleration (i.e. the software might assume it can be done instantaneously)
-#define DEFAULT_XYJERK                20.0    // (mm/sec)
-#define DEFAULT_ZJERK                 0.4     // (mm/sec)
-#define DEFAULT_EJERK                 5.0    // (mm/sec)
+#define DEFAULT_XYJERK                20.0f    // (mm/sec)
+#define DEFAULT_ZJERK                 0.4f     // (mm/sec)
+#define DEFAULT_EJERK                 5.0f    // (mm/sec)
 
 
 //=============================================================================
@@ -1308,14 +1308,14 @@
 // Uncomment below to enable
 //#define FILAMENT_WIDTH_SENSOR
 
-#define DEFAULT_NOMINAL_FILAMENT_DIA 1.75  //Enter the diameter (in mm) of the filament generally used (3.0 mm or 1.75 mm) - this is then used in the slicer software.  Used for sensor reading validation
+#define DEFAULT_NOMINAL_FILAMENT_DIA 1.75f  //Enter the diameter (in mm) of the filament generally used (3.0 mm or 1.75 mm) - this is then used in the slicer software.  Used for sensor reading validation
 
 #if ENABLED(FILAMENT_WIDTH_SENSOR)
   #define FILAMENT_SENSOR_EXTRUDER_NUM 0   //The number of the extruder that has the filament sensor (0,1,2)
   #define MEASUREMENT_DELAY_CM        14   //measurement delay in cm.  This is the distance from filament sensor to middle of barrel
 
-  #define MEASURED_UPPER_LIMIT         2.00  //upper limit factor used for sensor reading validation in mm
-  #define MEASURED_LOWER_LIMIT         1.60  //lower limit factor for sensor reading validation in mm
+  #define MEASURED_UPPER_LIMIT         2.00f  //upper limit factor used for sensor reading validation in mm
+  #define MEASURED_LOWER_LIMIT         1.60f  //lower limit factor for sensor reading validation in mm
   #define MAX_MEASUREMENT_DELAY       20     //delay buffer size in bytes (1 byte = 1cm)- limits maximum measurement delay allowable (must be larger than MEASUREMENT_DELAY_CM  and lower number saves RAM)
 
   #define DEFAULT_MEASURED_FILAMENT_DIA  DEFAULT_NOMINAL_FILAMENT_DIA  //set measured to nominal initially

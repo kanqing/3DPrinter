@@ -6,7 +6,9 @@ extern "C" {
 #endif 
    
 #include "stm32f7xx_hal.h"
-  
+//#include <math.h>
+ // #include <tgmath.h> 
+
   #define LOW   GPIO_PIN_RESET
   #define HIGH  GPIO_PIN_SET
   #define INPUT   (0)
@@ -88,7 +90,7 @@ extern "C" {
 
   #define digitalWrite(IO,v) ((IO) > (-1))?WRITE(IO, v):(HAL_GPIO_WritePin(0,0,(GPIO_PinState)v))//will generate an assert
   #define digitalRead(IO)   ((IO) > (-1))?READ(IO):0
-  
+  #define analogWrite(IO,v)  {}
   /// external macro 
   #define _BV(bit) (1<<(bit))
   #define PROGMEM
@@ -112,6 +114,9 @@ extern "C" {
   #define delay(x)      HAL_Delay(x) 
   #define cli()       __disable_irq()
   #define sei()       __enable_irq()
+  
+  //Temperature
+  #define PGM_RD_W(x)   (short)(x)
   
   /* */
   #define TICK_TIMER_PRESCALER  32

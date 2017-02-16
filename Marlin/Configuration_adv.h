@@ -132,7 +132,7 @@
  */
 #define AUTOTEMP
 #if ENABLED(AUTOTEMP)
-  #define AUTOTEMP_OLDWEIGHT 0.98
+  #define AUTOTEMP_OLDWEIGHT 0.98f
 #endif
 
 //Show Temperature ADC value
@@ -181,8 +181,8 @@
 
 //These defines help to calibrate the AD595 sensor in case you get wrong temperature measurements.
 //The measured temperature is defined as "actualTemp = (measuredTemp * TEMP_SENSOR_AD595_GAIN) + TEMP_SENSOR_AD595_OFFSET"
-#define TEMP_SENSOR_AD595_OFFSET 0.0
-#define TEMP_SENSOR_AD595_GAIN   1.0
+#define TEMP_SENSOR_AD595_OFFSET 0.0f
+#define TEMP_SENSOR_AD595_GAIN   1.0f
 
 //This is for controlling a fan to cool down the stepper drivers
 //it will turn on when any driver is enabled
@@ -303,7 +303,7 @@
   #define DEFAULT_DUAL_X_CARRIAGE_MODE 0
 
   // Default settings in "Auto-park Mode"
-  #define TOOLCHANGE_PARK_ZLIFT   0.2      // the distance to raise Z axis when parking an extruder
+  #define TOOLCHANGE_PARK_ZLIFT   0.2f      // the distance to raise Z axis when parking an extruder
   #define TOOLCHANGE_UNPARK_ZLIFT 1        // the distance to raise Z axis when unparking an extruder
 
   // Default x offset in duplication mode (typically set to half print bed width)
@@ -345,8 +345,8 @@
 #define DISABLE_INACTIVE_Z true  // set to false if the nozzle will fall down on your printed part when print has finished.
 #define DISABLE_INACTIVE_E true
 
-#define DEFAULT_MINIMUMFEEDRATE       0.0     // minimum feedrate
-#define DEFAULT_MINTRAVELFEEDRATE     0.0
+#define DEFAULT_MINIMUMFEEDRATE       0.0f     // minimum feedrate
+#define DEFAULT_MINTRAVELFEEDRATE     0.0f
 
 // @section lcd
 
@@ -371,7 +371,7 @@
 // Minimum planner junction speed. Sets the default minimum speed the planner plans for at the end
 // of the buffer and all stops. This should not be much greater than zero and should only be changed
 // if unwanted behavior is observed on a user's machine when running at very slow speeds.
-#define MINIMUM_PLANNER_SPEED 0.05// (mm/sec)
+#define MINIMUM_PLANNER_SPEED 0.05f// (mm/sec)
 
 // Microstep setting (Only functional when stepper driver microstep pins are connected to MCU.
 #define MICROSTEP_MODES {16,16,16,16,16} // [1,2,4,8,16]
@@ -387,7 +387,7 @@
 // Number of channels available for I2C digipot, For Azteeg X3 Pro we have 8
 #define DIGIPOT_I2C_NUM_CHANNELS 8
 // actual motor currents in Amps, need as many here as DIGIPOT_I2C_NUM_CHANNELS
-#define DIGIPOT_I2C_MOTOR_CURRENTS {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0}
+#define DIGIPOT_I2C_MOTOR_CURRENTS {1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f}
 
 //===========================================================================
 //=============================Additional Features===========================
@@ -495,8 +495,8 @@
 //#define ADVANCE
 
 #if ENABLED(ADVANCE)
-  #define EXTRUDER_ADVANCE_K .0
-  #define D_FILAMENT 2.85
+  #define EXTRUDER_ADVANCE_K 0.0f
+  #define D_FILAMENT 2.85f
 #endif
 
 // Implementation of a linear pressure control

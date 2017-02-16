@@ -65,6 +65,7 @@
 #include "language.h"
 
 #include "Marlin.h"
+#include "fastio.h"
 
 #if ENABLED(MESH_BED_LEVELING)
   #include "mesh_bed_leveling.h"
@@ -364,7 +365,7 @@ void Planner::recalculate() {
     if (!autotemp_enabled) return;
     if (thermalManager.degTargetHotend(0) + 2 < autotemp_min) return; // probably temperature set to zero.
 
-    float high = 0.0;
+    float high = 0.0f;
     for (uint8_t b = block_buffer_tail; b != block_buffer_head; b = next_block_index(b)) {
       block_t* block = &block_buffer[b];
       if (block->steps[X_AXIS] || block->steps[Y_AXIS] || block->steps[Z_AXIS]) {
@@ -809,7 +810,7 @@ void Planner::check_axes_activity() {
     delta_mm[Y_AXIS] = dy * steps_to_mm[Y_AXIS];
     delta_mm[Z_AXIS] = dz * steps_to_mm[Z_AXIS];
   #endif
-  delta_mm[E_AXIS] = 0.01 * (de * steps_to_mm[E_AXIS]) * volumetric_multiplier[extruder] * extruder_multiplier[extruder];
+  delta_mm[E_AXIS] = 0.01f * (de * steps_to_mm[E_AXIS]) * volumetric_multiplier[extruder] * extruder_multiplier[extruder];
 
   if (block->steps[X_AXIS] <= dropsegments && block->steps[Y_AXIS] <= dropsegments && block->steps[Z_AXIS] <= dropsegments) {
     block->millimeters = fabs(delta_mm[E_AXIS]);
@@ -827,7 +828,7 @@ void Planner::check_axes_activity() {
       #endif
     );
   }
-  float inverse_millimeters = 1.0 / block->millimeters;  // Inverse millimeters to remove multiple divides
+  float inverse_millimeters = 1.0f / block->millimeters;  // Inverse millimeters to remove multiple divides
 
   // Calculate moves/second for this move. No divide by zero due to previous checks.
   float inverse_mm_s = fr_mm_s * inverse_millimeters;
@@ -838,17 +839,17 @@ void Planner::check_axes_activity() {
   #if ENABLED(OLD_SLOWDOWN) || ENABLED(SLOWDOWN)
     bool mq = moves_queued > 1 && moves_queued < (BLOCK_BUFFER_SIZE) / 2;
     #if ENABLED(OLD_SLOWDOWN)
-      if (mq) fr_mm_s *= 2.0 * moves_queued / (BLOCK_BUFFER_SIZE);
+      if (mq) fr_mm_s *= 2.0f * moves_queued / (BLOCK_BUFFER_SIZE);
     #endif
     #if ENABLED(SLOWDOWN)
       //  segment time im micro seconds
-      unsigned long segment_time = lround(1000000.0/inverse_mm_s);
+      unsigned long segment_time = lround(1000000.0f/inverse_mm_s);
       if (mq) {
         if (segment_time < min_segment_time) {
           // buffer is draining, add extra time.  The amount of time added increases if the buffer is still emptied more.
-          inverse_mm_s = 1000000.0 / (segment_time + lround(2 * (min_segment_time - segment_time) / moves_queued));
+          inverse_mm_s = 1000000.0f / (segment_time + lround(2.0f * (min_segment_time - segment_time) / moves_queued));
           #ifdef XY_FREQUENCY_LIMIT
-            segment_time = lround(1000000.0 / inverse_mm_s);
+            segment_time = lround(1000000.0f / inverse_mm_s);
           #endif
         }
       }
@@ -871,13 +872,13 @@ void Planner::check_axes_activity() {
       filwidth_delay_dist += delta_mm[E_AXIS];
 
       // Only get new measurements on forward E movement
-      if (filwidth_e_count > 0.0001) {
+      if (filwidth_e_count > 0.0001f) {
 
         // Loop the delay distance counter (modulus by the mm length)
         while (filwidth_delay_dist >= MMD_MM) filwidth_delay_dist -= MMD_MM;
 
         // Convert into an index into the measurement array
-        filwidth_delay_index1 = (int)(filwidth_delay_dist * 0.1 + 0.0001);
+        filwidth_delay_index1 = (int)(filwidth_delay_dist * 0.1f + 0.0001f);
 
         // If the index has changed (must have gone forward)...
         if (filwidth_delay_index1 != filwidth_delay_index2) {
@@ -894,7 +895,7 @@ void Planner::check_axes_activity() {
 
   // Calculate and limit speed in mm/sec for each axis
   float current_speed[NUM_AXIS];
-  float speed_factor = 1.0; //factor <=1 do decrease speed
+  float speed_factor = 1.0f; //factor <=1 do decrease speed
   LOOP_XYZE(i) {
     current_speed[i] = delta_mm[i] * inverse_mm_s;
     float cs = fabs(current_speed[i]), mf = max_feedrate_mm_s[i];
@@ -940,7 +941,7 @@ void Planner::check_axes_activity() {
   #endif // XY_FREQUENCY_LIMIT
 
   // Correct the speed
-  if (speed_factor < 1.0) {
+  if (speed_factor < 1.0f) {
     LOOP_XYZE(i) current_speed[i] *= speed_factor;
     block->nominal_speed *= speed_factor;
     block->nominal_rate *= speed_factor;
@@ -964,11 +965,11 @@ void Planner::check_axes_activity() {
       block->acceleration_steps_per_s2 = (max_acceleration_steps_per_s2[E_AXIS] * block->step_event_count) / block->steps[E_AXIS];
   }
   block->acceleration = block->acceleration_steps_per_s2 / steps_per_mm;
-  block->acceleration_rate = (long)(block->acceleration_steps_per_s2 * 16777216.0 / ((F_CPU) * 0.125));
+  block->acceleration_rate = (long)(block->acceleration_steps_per_s2 * 16777216.0f / ((F_CPU) * 0.125f));
 
   #if 0  // Use old jerk for now
 
-    float junction_deviation = 0.1;
+    float junction_deviation = 0.1f;
 
     // Compute path unit vector
     double unit_vec[3];
@@ -989,31 +990,31 @@ void Planner::check_axes_activity() {
     double vmax_junction = MINIMUM_PLANNER_SPEED; // Set default max junction speed
 
     // Skip first block or when previous_nominal_speed is used as a flag for homing and offset cycles.
-    if ((block_buffer_head != block_buffer_tail) && (previous_nominal_speed > 0.0)) {
+    if ((block_buffer_head != block_buffer_tail) && (previous_nominal_speed > 0.0f)) {
       // Compute cosine of angle between previous and current path. (prev_unit_vec is negative)
       // NOTE: Max junction velocity is computed without sin() or acos() by trig half angle identity.
       double cos_theta = - previous_unit_vec[X_AXIS] * unit_vec[X_AXIS]
                          - previous_unit_vec[Y_AXIS] * unit_vec[Y_AXIS]
                          - previous_unit_vec[Z_AXIS] * unit_vec[Z_AXIS] ;
       // Skip and use default max junction speed for 0 degree acute junction.
-      if (cos_theta < 0.95) {
+      if (cos_theta < 0.95f) {
         vmax_junction = min(previous_nominal_speed, block->nominal_speed);
         // Skip and avoid divide by zero for straight junctions at 180 degrees. Limit to min() of nominal speeds.
-        if (cos_theta > -0.95) {
+        if (cos_theta > -0.95f) {
           // Compute maximum junction velocity based on maximum acceleration and junction deviation
-          double sin_theta_d2 = sqrt(0.5 * (1.0 - cos_theta)); // Trig half angle identity. Always positive.
+          double sin_theta_d2 = sqrt(0.5f * (1.0f - cos_theta)); // Trig half angle identity. Always positive.
           vmax_junction = min(vmax_junction,
-                              sqrt(block->acceleration * junction_deviation * sin_theta_d2 / (1.0 - sin_theta_d2)));
+                              sqrt(block->acceleration * junction_deviation * sin_theta_d2 / (1.0f - sin_theta_d2)));
         }
       }
     }
   #endif
 
   // Start with a safe speed
-  float vmax_junction = max_xy_jerk * 0.5,
-        vmax_junction_factor = 1.0,
-        mz2 = max_z_jerk * 0.5,
-        me2 = max_e_jerk * 0.5,
+  float vmax_junction = max_xy_jerk * 0.5f,
+        vmax_junction_factor = 1.0f,
+        mz2 = max_z_jerk * 0.5f,
+        me2 = max_e_jerk * 0.5f,
         csz = current_speed[Z_AXIS],
         cse = current_speed[E_AXIS];
   if (fabs(csz) > mz2) vmax_junction = min(vmax_junction, mz2);
@@ -1021,14 +1022,14 @@ void Planner::check_axes_activity() {
   vmax_junction = min(vmax_junction, block->nominal_speed);
   float safe_speed = vmax_junction;
 
-  if ((moves_queued > 1) && (previous_nominal_speed > 0.0001)) {
+  if ((moves_queued > 1) && (previous_nominal_speed > 0.0001f)) {
     float dsx = current_speed[X_AXIS] - previous_speed[X_AXIS],
           dsy = current_speed[Y_AXIS] - previous_speed[Y_AXIS],
           dsz = fabs(csz - previous_speed[Z_AXIS]),
           dse = fabs(cse - previous_speed[E_AXIS]),
           jerk = HYPOT(dsx, dsy);
 
-    //    if ((fabs(previous_speed[X_AXIS]) > 0.0001) || (fabs(previous_speed[Y_AXIS]) > 0.0001)) {
+    //    if ((fabs(previous_speed[X_AXIS]) > 0.0001f) || (fabs(previous_speed[Y_AXIS]) > 0.0001f)) {
     vmax_junction = block->nominal_speed;
     //    }
     if (jerk > max_xy_jerk) vmax_junction_factor = max_xy_jerk / jerk;
@@ -1161,9 +1162,9 @@ void Planner::check_axes_activity() {
          nz = position[Z_AXIS] = lround(z * axis_steps_per_mm[Z_AXIS]),
          ne = position[E_AXIS] = lround(e * axis_steps_per_mm[E_AXIS]);
     stepper.set_position(nx, ny, nz, ne);
-    previous_nominal_speed = 0.0; // Resets planner junction speeds. Assumes start from rest.
+    previous_nominal_speed = 0.0f; // Resets planner junction speeds. Assumes start from rest.
 
-    LOOP_XYZE(i) previous_speed[i] = 0.0;
+    LOOP_XYZE(i) previous_speed[i] = 0.0f;
   }
 
 /**
@@ -1172,7 +1173,7 @@ void Planner::check_axes_activity() {
 void Planner::set_e_position_mm(const float& e) {
   position[E_AXIS] = lround(e * axis_steps_per_mm[E_AXIS]);
   stepper.set_e_position(position[E_AXIS]);
-  previous_speed[E_AXIS] = 0.0;
+  previous_speed[E_AXIS] = 0.0f;
 }
 
 // Recalculate the steps/s^2 acceleration rates, based on the mm/s^2
@@ -1183,7 +1184,7 @@ void Planner::reset_acceleration_rates() {
 
 // Recalculate position, steps_to_mm if axis_steps_per_mm changes!
 void Planner::refresh_positioning() {
-  LOOP_XYZE(i) steps_to_mm[i] = 1.0 / axis_steps_per_mm[i];
+  LOOP_XYZE(i) steps_to_mm[i] = 1.0f / axis_steps_per_mm[i];
   #if ENABLED(DELTA) || ENABLED(SCARA)
     inverse_kinematics(current_position);
     set_position_mm(delta[X_AXIS], delta[Y_AXIS], delta[Z_AXIS], current_position[E_AXIS]);
