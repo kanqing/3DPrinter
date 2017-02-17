@@ -34,11 +34,12 @@
 #include "stepper.h"
 
 #include "Marlin.h"
+#include "bsp_stm32f7xx_usart.h"
 
 #ifndef USBCON
 // this next line disables the entire HardwareSerial.cpp,
 // this is so I can support Attiny series and any other chip without a UART
-#if defined(UBRRH) || defined(UBRR0H) || defined(UBRR1H) || defined(UBRR2H) || defined(UBRR3H)
+//#if defined(UBRRH) || defined(UBRR0H) || defined(UBRR1H) || defined(UBRR2H) || defined(UBRR3H) || defined(STM_3D)
 
 #if UART_PRESENT(SERIAL_PORT)
   ring_buffer_r rx_buffer  =  { { 0 }, 0, 0 };
@@ -48,7 +49,7 @@
   #endif
 #endif
 
-
+#if !MB(STM_3D)
 FORCE_INLINE void store_char(unsigned char c) {
   CRITICAL_SECTION_START;
     uint8_t h = rx_buffer.head;
@@ -68,6 +69,7 @@ FORCE_INLINE void store_char(unsigned char c) {
     emergency_parser(c);
   #endif
 }
+#endif
 
 #if TX_BUFFER_SIZE > 0
   FORCE_INLINE void _tx_udr_empty_irq(void)
@@ -99,13 +101,14 @@ FORCE_INLINE void store_char(unsigned char c) {
 
 #endif
 
+#if !MB(STM_3D)		
 #if defined(M_USARTx_RX_vect)
   ISR(M_USARTx_RX_vect) {
     unsigned char c  =  M_UDRx;
     store_char(c);
   }
 #endif
-
+#endif
 // Constructors ////////////////////////////////////////////////////////////////
 
 MarlinSerial::MarlinSerial() { }
@@ -113,6 +116,7 @@ MarlinSerial::MarlinSerial() { }
 // Public Methods //////////////////////////////////////////////////////////////
 
 void MarlinSerial::begin(long baud) {
+#if !MB(STM_3D)
   uint16_t baud_setting;
   bool useU2X = true;
 
@@ -145,23 +149,36 @@ void MarlinSerial::begin(long baud) {
     CBI(M_UCSRxB, M_UDRIEx);
     _written = false;
   #endif
+#else	
+	BSP_UartHwInit(baud);
+	BSP_UartIfStart();
+#endif
 }
 
 void MarlinSerial::end() {
+#if !MB(STM_3D)
   CBI(M_UCSRxB, M_RXENx);
   CBI(M_UCSRxB, M_TXENx);
   CBI(M_UCSRxB, M_RXCIEx);
   CBI(M_UCSRxB, M_UDRIEx);
+#else
+	
+#endif
 }
 
+
 void MarlinSerial::checkRx(void) {
+#if !MB(STM_3D)
   if (TEST(M_UCSRxA, M_RXCx)) {
     uint8_t c  =  M_UDRx;
     store_char(c);
   }
+#endif
 }
 
+
 int MarlinSerial::peek(void) {
+#if !MB(STM_3D)
   int v;
   CRITICAL_SECTION_START;
   uint8_t t = rx_buffer.tail;
@@ -173,9 +190,13 @@ int MarlinSerial::peek(void) {
   }
   CRITICAL_SECTION_END;
   return v;
+#else
+	return -1;
+#endif
 }
 
 int MarlinSerial::read(void) {
+#if !MB(STM_3D)
   int v;
   CRITICAL_SECTION_START;
   uint8_t t = rx_buffer.tail;
@@ -188,17 +209,27 @@ int MarlinSerial::read(void) {
   }
   CRITICAL_SECTION_END;
   return v;
+#else
+	return BSP_UartGetNextRxBytes();
+#endif
 }
 
+
 uint8_t MarlinSerial::available(void) {
+#if !MB(STM_3D)
   CRITICAL_SECTION_START;
     uint8_t h = rx_buffer.head;
     uint8_t t = rx_buffer.tail;
   CRITICAL_SECTION_END;
   return (uint8_t)(RX_BUFFER_SIZE + h - t) & (RX_BUFFER_SIZE - 1);
+#else
+	return BSP_UartGetNbRxAvalaibleBytes();
+#endif
 }
 
+
 void MarlinSerial::flush(void) {
+#if !MB(STM_3D)
   // RX
   // don't reverse this or there may be problems if the RX interrupt
   // occurs after reading the value of rx_buffer_head but before writing
@@ -208,6 +239,7 @@ void MarlinSerial::flush(void) {
   CRITICAL_SECTION_START;
     rx_buffer.head = rx_buffer.tail;
   CRITICAL_SECTION_END;
+#endif
 }
 
 #if TX_BUFFER_SIZE > 0
@@ -283,9 +315,13 @@ void MarlinSerial::flush(void) {
 
 #else
   void MarlinSerial::write(uint8_t c) {
+	#if !MB(STM_3D)
     while (!TEST(M_UCSRxA, M_UDREx))
       ;
     M_UDRx = c;
+	#else
+		BSP_UartIfQueueTxData(&c, 1);
+  #endif
   }
 #endif
 
@@ -340,10 +376,12 @@ void MarlinSerial::println(void) {
   print('\n');
 }
 
+#if !MB(STM_3D)
 void MarlinSerial::println(const String& s) {
   print(s);
   println();
 }
+#endif
 
 void MarlinSerial::println(const char c[]) {
   print(c);
@@ -442,7 +480,7 @@ void MarlinSerial::printFloat(double number, uint8_t digits) {
 
 MarlinSerial customizedSerial;
 
-#endif // whole file
+//#endif // whole file
 #endif // !USBCON
 
 // For AT90USB targets use the UART for BT interfacing

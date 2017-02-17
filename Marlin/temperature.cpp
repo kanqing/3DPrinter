@@ -1373,6 +1373,9 @@ void Temperature::set_current_temp_raw() {
   temp_meas_ready = true;
 }
 
+
+    
+  
 /**
  * Timer 0 is shared with millies
  *  - Manage PWM to all the heaters and fan
@@ -1380,6 +1383,7 @@ void Temperature::set_current_temp_raw() {
  *  - Check new temperature values for MIN/MAX errors
  *  - Step the babysteps value for each axis towards 0
  */
+#if !MB(STM_3D)
 ISR(TIMER0_COMPB_vect) { Temperature::isr(); }
 
 void Temperature::isr() {
@@ -1840,3 +1844,9 @@ void Temperature::isr() {
     }
   #endif //BABYSTEPPING
 }
+#else
+void IsrTemperatureHandler() { Temperature::TemperatureHandler(); }
+void Temperature::TemperatureHandler(){
+	
+}
+#endif

@@ -96,7 +96,7 @@ int main(void)
   MX_USART1_UART_Init();
   //MX_USB_DEVICE_Init();
   init_debug_io();
-  init_tim_tick1();
+  Timer_Tick1Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */

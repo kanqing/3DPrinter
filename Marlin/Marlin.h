@@ -32,6 +32,7 @@
 
 #include "MarlinConfig.h"
 
+
 #include "enum.h"
 #include "types.h"
 #include "fastio.h"
@@ -44,17 +45,20 @@
 #include <avr/interrupt.h>
 #endif
 
-#ifdef USBCON
-  #include "HardwareSerial.h"
-  #if ENABLED(BLUETOOTH)
-    #define MYSERIAL bluetoothSerial
-  #else
-    #define MYSERIAL Serial
-  #endif // BLUETOOTH
-#else
+//#ifdef USBCON
+//  #include "HardwareSerial.h"
+//  #if ENABLED(BLUETOOTH)
+//    #define MYSERIAL bluetoothSerial
+//  #else
+//    #define MYSERIAL Serial
+//  #endif // BLUETOOTH
+//#else
+//  #include "MarlinSerial.h"
+//  #define MYSERIAL customizedSerial
+//#endif
+
   #include "MarlinSerial.h"
   #define MYSERIAL customizedSerial
-#endif
 
 #if !MB(STM_3D)
 #include "WString.h"

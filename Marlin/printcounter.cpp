@@ -23,6 +23,7 @@
 #include "Marlin.h"
 #include "printcounter.h"
 #include "duration_t.h"
+#include "bsp_eeprom.h"
 
 PrintCounter::PrintCounter(): address(0x32), updateInterval(10), saveInterval(36), loaded(false), super() {
   this->loadStats();
@@ -60,10 +61,18 @@ void PrintCounter::initStats() {
   #endif
 
   this->loaded = true;
+	#if MB(STM_3D)
+	this->data.totalPrints = 0;
+	this->data.finishedPrints = 0;
+	this->data.printTime = 0;
+	this->data.longestPrint = 0;
+	this->data.filamentUsed = 0.0f;
+	#else
   this->data = { 0, 0, 0, 0, 0.0 };
+	#endif
 
   this->saveStats();
-  eeprom_write_byte((uint8_t *) this->address, 0x16);
+  eeprom_write_byte((uint8_t *) (this->address), 0x16);
 }
 
 void PrintCounter::loadStats() {

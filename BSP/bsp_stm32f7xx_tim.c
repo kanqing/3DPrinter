@@ -25,10 +25,8 @@ TIM_HandleTypeDef hTimTick1;
       3) each time HAL_RCC_ClockConfig() is called to configure the system clock frequency
   ----------------------------------------------------------------------- */
 
-void init_tim_tick1(void)
+void Timer_Tick1Init(void)
 {
-  GPIO_InitTypeDef GPIO_InitStruct;
-  
   TIM_ClockConfigTypeDef	sClockSourceConfig;
   TIM_OC_InitTypeDef sConfigOC;
   //TIM_OnePulse_InitTypeDef sConfigOC;
@@ -36,46 +34,14 @@ void init_tim_tick1(void)
   
   uint32_t PrescalerValue = 0;
   
-//  /* Peripheral clock enable */
-//  __GPIOA_CLK_ENABLE();
-//  
-//  /* GPIO configuration */
-//  GPIO_InitStruct.Pin = GPIO_PIN_8;
-//  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-//  GPIO_InitStruct.Pull = GPIO_NOPULL;
-//  GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
-//  GPIO_InitStruct.Alternate = GPIO_AF1_TIM1;
-//  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /* Set Interrupt Group Priority of Timer Interrupt*/ 
+  /* Set Interrupt Group Priorit of Timer Interrupt*/ 
   HAL_NVIC_SetPriority(TIM1_CC_IRQn, 6, 0);
 
   /* Enable the timer global Interrupt */
   HAL_NVIC_EnableIRQ(TIM1_CC_IRQn); 
   
   __TIM1_CLK_ENABLE();
-#if 0
-  hTimTick1.Instance = TIM1;
-  hTimTick1.Init.Prescaler = 32 - 1;
-  hTimTick1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  hTimTick1.Init.Period = 0xFFFFFFFF;
-  hTimTick1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  HAL_TIM_OC_Init(&hTimTick1);
- 
-  //sConfigOC.OCMode = TIM_OCMODE_TOGGLE;
-  sConfigOC.OCMode = TIM_OCMODE_TIMING;
-  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH; 
-  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-  sConfigOC.Pulse = 450;
-  HAL_TIM_OC_ConfigChannel(&hTimTick1, &sConfigOC, TIM_CHANNEL_1);
 
-  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-	HAL_TIM_ConfigClockSource(&hTimTick1, &sClockSourceConfig);
-  
-  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
-  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  HAL_TIMEx_MasterConfigSynchronization(&hTimTick1, &sMasterConfig);
-#endif
   //≤Œ’’Marlin¥˙¬Î£¨AVR2560 16MHzOSC 8 Divide Freq = 2MHz
   PrescalerValue = (uint16_t) ((HAL_RCC_GetSysClockFreq()) / 2000000) - 1;
 
@@ -154,6 +120,25 @@ void Timer_Tick1Stop(void)
 //	bspTickEnabled = 0;
 }
 
+void Timer_Tick2Init(void)
+{
+
+}
+
+void Timer_Tick2SetPeriod(uint32_t newTimPeriod)
+{
+	
+}
+
+void Timer_Tick2Start(void)
+{
+	
+}
+
+void Timer_Tick2Stop(void)
+{
+	
+}
 
 /****************************************************************
  * @FunName	: HAL_TIM_OC_DelayElapsedCallback()

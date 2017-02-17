@@ -1,0 +1,3 @@
+,__USE_C99_MATH //using C99 
+__USE_C99_ALL
+-D__USE_C99_ALL

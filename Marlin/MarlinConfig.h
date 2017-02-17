@@ -39,5 +39,5 @@
 #endif
 #include "Conditionals_post.h"
 #include "SanityCheck.h"
-
+#include "MarlinSerial.h"
 #endif // MARLIN_CONFIG_H

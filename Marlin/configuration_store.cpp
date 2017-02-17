@@ -132,6 +132,7 @@
 #include "temperature.h"
 #include "ultralcd.h"
 #include "configuration_store.h"
+#include "bsp_eeprom.h"
 
 #if ENABLED(MESH_BED_LEVELING)
   #include "mesh_bed_leveling.h"

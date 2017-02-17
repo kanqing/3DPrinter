@@ -1169,7 +1169,7 @@ void Stepper::init() {
   #endif
 
 #if MB(STM_3D)
-    init_tim_tick1();
+    Timer_Tick1Init();
 #else    
   // waveform generation = 0100 = CTC
   CBI(TCCR1B, WGM13);
